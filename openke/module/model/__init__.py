@@ -9,6 +9,7 @@ from .TransR import TransR
 from .TransH import TransH
 from .DistMult import DistMult
 from .ComplEx import ComplEx
+from .ComplEx_NNE_AER import ComplEx_NNE_AER
 from .RESCAL import RESCAL
 from .Analogy import Analogy
 from .SimplE import SimplE
@@ -22,6 +23,7 @@ __all__ = [
     'TransH',
     'DistMult',
     'ComplEx',
+    'ComplEx_NNE_AER',
     'RESCAL',
     'Analogy',
     'SimplE',

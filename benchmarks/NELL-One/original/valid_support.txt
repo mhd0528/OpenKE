@@ -1,0 +1,5 @@
+concept:male:noah	concept:parentofperson	concept:male:shem
+concept:governmentorganization:u_s__house	concept:politicalgroupofpoliticianus	concept:politicianus:john_boehner
+concept:bank:deutsche_bank	concept:bankbankincountry	concept:country:india
+concept:county:los_angeles_county	concept:cityalsoknownas	concept:city:la
+concept:sport:soccer	concept:sportusesstadium	concept:stadiumoreventvenue:wembley_stadium

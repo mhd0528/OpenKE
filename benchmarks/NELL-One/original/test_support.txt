@@ -1,0 +1,11 @@
+concept:sportsgame:n1937_world_series	concept:sportsgamesport	concept:sport:baseball
+concept:automobilemaker:lexus	concept:automobilemakerdealersincity	concept:city:dallas
+concept:athlete:peter_moylan	concept:athleteinjuredhisbodypart	concept:bodypart:shoulders
+concept:city:lancaster	concept:geopoliticallocationresidenceofpersion	concept:person:diana_greenough
+concept:politicianus:andrew_jackson	concept:politicianusendorsespoliticianus	concept:politicianus:clinton
+concept:insect:marine_life	concept:animalsuchasinvertebrate	concept:arthropod:crustaceans
+concept:sport:soccer	concept:sportschoolincountry	concept:country:america
+concept:food:sweets	concept:agriculturalproductcamefromcountry	concept:country:india
+concept:automobilemaker:lotus	concept:automobilemakerdealersincountry	concept:country:usa
+concept:sportsteam:cavaliers	concept:teamcoach	concept:personus:lebron_james
+concept:automobilemodel:windstar	concept:producedby	concept:company:ford001

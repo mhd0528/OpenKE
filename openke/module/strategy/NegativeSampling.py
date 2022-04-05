@@ -1,4 +1,5 @@
 from .Strategy import Strategy
+import sys
 
 class NegativeSampling(Strategy):
 
@@ -22,9 +23,11 @@ class NegativeSampling(Strategy):
 
 	def forward(self, data):
 		score = self.model(data)
+		# print('original score: ' + str(score))
 		p_score = self._get_positive_score(score)
 		n_score = self._get_negative_score(score)
 		loss_res = self.loss(p_score, n_score)
+		# loss_rule = self.model._calc_rule()
 		if self.regul_rate != 0:
 			loss_res += self.regul_rate * self.model.regularization(data)
 		if self.l3_regul_rate != 0:

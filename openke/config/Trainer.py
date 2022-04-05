@@ -13,6 +13,8 @@ import numpy as np
 import copy
 from tqdm import tqdm
 
+from openke.module.model import ComplEx_NNE_AER
+
 class Trainer(object):
 
 	def __init__(self, 
@@ -49,13 +51,29 @@ class Trainer(object):
 			'batch_y': self.to_var(data['batch_y'], self.use_gpu),
 			'mode': data['mode']
 		})
+		# print('original embedding: ' + str(self.model.model.rel_re_embeddings.weight.grad))
+		# loss.backward()
+		# print('embedding gradient after original loss: ' + str(self.model.model.rel_re_embeddings.weight.grad[130]))
+		if isinstance(self.model.model, ComplEx_NNE_AER):
+			loss_rule = self.model.model._calc_rule()
+			loss += loss_rule
 		loss.backward()
-		self.optimizer.step()		 
+			# print('embedding gradient after rule loss: ' + str(self.model.model.rel_re_embeddings.weight.grad[130]))
+			# self.model.model._calc_rule_grad()
+			# print('updated embedding gradient after backward: ' + str(self.model.model.rel_re_embeddings.weight.grad[130]))
+			# sys.exit()
+		self.optimizer.step()
+		# NNE constraint
+		# print('updated embedding gradient before NNE: ' + str(self.model.model.rel_re_embeddings.weight.grad[130]))
+		# self.model.model.ent_re_embeddings.weight.data = self.model.model.ent_re_embeddings.weight.data.clamp_(0, 1)
+		# self.model.model.ent_im_embeddings.weight.data = self.model.model.ent_im_embeddings.weight.data.clamp_(1e-3, 1)
+		# print('updated embedding gradient after NNE: ' + str(self.model.model.rel_re_embeddings.weight.grad[130]))
 		return loss.item()
 
 	def run(self):
 		if self.use_gpu:
 			self.model.cuda()
+		# print("original parameters: " + str(self.model.get_parameters()['model.rel_re_embeddings.weight'][130]))
 
 		if self.optimizer != None:
 			pass
@@ -92,7 +110,11 @@ class Trainer(object):
 			for data in self.data_loader:
 				loss = self.train_one_step(data)
 				res += loss
+				# print("updated embedding: " + str(np.sum(self.model.get_parameters()['model.rel_re_embeddings.weight'][130])))
+				# print("updated gradient: " + str(torch.sum(self.model.model.rel_re_embeddings.weight.grad[130])))
 			training_range.set_description("Epoch %d | loss: %f" % (epoch, res))
+			# if epoch < 10:
+			# 	sys.exit()
 			
 			if self.save_steps and self.checkpoint_dir and (epoch + 1) % self.save_steps == 0:
 				print("Epoch %d has finished, saving..." % (epoch))
